@@ -1,0 +1,16 @@
+[Unit]
+Description=Keeps a tunnel to 'remote.example.com' open
+After=network-online.target ssh.service
+
+[Service]
+## User=autossh
+# -M Monitoring port: 0 --> no monitoring
+# -N Just open the connection and do nothing (not interactive)
+
+ExecStart=/usr/bin/autossh -M 20000 -N -T -R <PORT_ON_REMOTE_SERVER>:localhost:<PORT-ON-LOCAL> <REMOTE-IP> 
+
+RestartSec=5
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
